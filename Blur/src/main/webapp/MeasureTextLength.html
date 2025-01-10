@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Measure Text Length</title>
+</head>
+<body>
+    <input type="text" id="inputField" placeholder="Type or paste text here" style="width: 300px;" />
+    <p id="output"></p>
+
+    <script>
+        const inputField = document.getElementById("inputField");
+        const output = document.getElementById("output");
+
+        // Function to get the selected text length
+        const getSelectedTextLength = () => {
+            const input = inputField.value; // Full input text
+            const selectionStart = inputField.selectionStart; // Start of selection
+            const selectionEnd = inputField.selectionEnd; // End of selection
+
+            // Calculate selected text and its length
+            const selectedText = input.substring(selectionStart, selectionEnd);
+            return { selectedText, length: selectedText.length };
+        };
+
+        // Event: Detect mouse selection and calculate text length
+        inputField.addEventListener("mouseup", () => {
+            const { selectedText, length } = getSelectedTextLength();
+            output.textContent = `Selected Text: "${selectedText}" | Length: ${length}`;
+        });
+
+        // Event: Calculate total text length including spaces on blur
+        inputField.addEventListener("blur", () => {
+            const fullText = inputField.value;
+            output.textContent = `Full Text: "${fullText}" | Total Length (with spaces): ${fullText.length}`;
+        });
+    </script>
+</body>
+</html>
